@@ -67,7 +67,7 @@ class Graph:
                     s.push(neighbor)
 
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited = set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -76,7 +76,13 @@ class Graph:
         s = Stack()
         s.push(starting_vertex)
         while s.size() is not 0:
-            current = s.
+            current = s.pop()
+            if current not in visited:
+                print(f'recursion: {current}')
+                visited.add(current)
+                for neighbor in self.vertices[current]:
+                    self.dft_recursive(neighbor, visited)
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -95,15 +101,15 @@ class Graph:
             path = q.dequeue()
             # Grab the last vertex from the PATH
             # If that vertex has not been visited...
-            if last not in visited:
+            if path not in visited:
                 # CHECK IF IT'S THE TARGET
-                if last == destination_vertex:
+                if path == destination_vertex:
                   # IF SO, RETURN PATH
                   return path
                 # Mark it as visited...
-                visited.add(last)
+                visited.add(path)
                 # Then add A PATH TO its neighbors to the back of the queue
-                for neighbor in self.vertices[last]:
+                for neighbor in self.vertices[path]:
                   # COPY THE PATH
                   q.enqueue(neighbor)
                   # APPEND THE NEIGHOR TO THE BACK
