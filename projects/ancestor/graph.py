@@ -149,6 +149,24 @@ class Graph:
                     path_copy.append(neighbor)
                     #Add new path to the stack.
                     s.push(path_copy)
+    
+    def last_ancestor(self, starting_vertex):
+        # Create an empty queue and enqueue the starting vertex ID
+        q = Queue()
+        q.enqueue(starting_vertex)
+        #create variable to track ancestor, default to -1 if no ancestor.
+        ancestor = -1
+        # While the queue is not empty...
+        while q.size() > 0:
+            # Dequeue the first vertex
+            v = q.dequeue()
+            #if 
+            if bool(self.vertices[v]) is False and v != starting_vertex:
+                ancestor = v
+                # Then add all of its neighbors to the back of the queue
+            for neighbor in self.vertices[v]:
+                q.enqueue(neighbor)
+        return ancestor
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
